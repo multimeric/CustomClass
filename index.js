@@ -1,3 +1,28 @@
+/**
+ * Calls a proxy function with the given name, if this subclass implements it
+ * @param method The proxy method to call (apply, set, get etc)
+ * @param args The arguments from this method
+ */
+function callIfExists(method, ...args) {
+    const proxy = args[0];
+    const customName = proxy.__names[method];
+
+    // Create a bound function that will return the default value, but don't call it by default because it might have
+    // side-effects
+    const getDefault = () => {
+        return Reflect[method](...args)
+    };
+
+    // Return a custom value if it's defined, otherwise return the default
+    if (customName in proxy)
+        return proxy[customName](...args, getDefault);
+    else
+        return getDefault();
+}
+
+/**
+ * Default names for the custom methods. These can be overwritten
+ */
 const defaultMethodNames = {
     apply: '__apply__',
     construct: '__construct__',
@@ -16,56 +41,56 @@ const defaultMethodNames = {
 
 
 const handler = {
-    apply(target, thisArg, args) {
-        return target.callIfExists('apply', target, [thisArg, args]);
+    apply(...args) {
+        return callIfExists('apply', ...args);
     },
 
-    construct(target, args) {
-        return target.callIfExists('construct', target, [args]);
+    construct(...args) {
+        return callIfExists('construct', ...args);
     },
 
-    defineProperty(target, key, descriptor) {
-        return target.callIfExists('defineProperty', target, [key, descriptor]);
+    defineProperty(...args) {
+        return callIfExists('defineProperty', ...args);
     },
 
-    deleteProperty(target, prop) {
-        return target.callIfExists('deleteProperty', target, [prop]);
+    deleteProperty(...args) {
+        return callIfExists('deleteProperty', ...args);
     },
 
-    get(target, prop) {
-        return target.callIfExists('get', target, [prop]);
+    get(...args) {
+        return callIfExists('get', ...args);
     },
 
-    getOwnPropertyDescriptor(target, prop) {
-        return target.callIfExists('getOwnPropertyDescriptor', target, [prop]);
+    getOwnPropertyDescriptor(...args) {
+        return callIfExists('getOwnPropertyDescriptor', ...args);
     },
 
-    getPrototypeOf(target) {
-        return target.callIfExists('getPrototypeOf', target);
+    getPrototypeOf(...args) {
+        return callIfExists('getPrototypeOf', ...args);
     },
 
-    has(target, key) {
-        return target.callIfExists('has', target, [key]);
+    has(...args) {
+        return callIfExists('has', ...args);
     },
 
-    isExtensible(target) {
-        return target.callIfExists('isExtensible', target);
+    isExtensible(...args) {
+        return callIfExists('isExtensible', ...args);
     },
 
-    ownKeys(target) {
-        return target.callIfExists('ownKeys', target);
+    ownKeys(...args) {
+        return callIfExists('ownKeys', ...args);
     },
 
-    preventExtensions(target) {
-        return target.callIfExists('preventExtensions', target);
+    preventExtensions(...args) {
+        return callIfExists('preventExtensions', ...args);
     },
 
-    set(target, prop, value) {
-        return target.callIfExists('set', target, [prop, value]);
+    set(...args) {
+        return callIfExists('set', ...args);
     },
 
-    setPrototypeOf(target, args) {
-        return target.callIfExists('setPrototypeOf', target, [args]);
+    setPrototypeOf(...args) {
+        return callIfExists('setPrototypeOf', ...args);
     },
 };
 
@@ -80,19 +105,6 @@ class CustomizableClass extends Function {
         return new Proxy(this, handler);
     }
 
-    /**
-     * Calls a proxy function with the given name, if this subclass implements it
-     * @param method The proxy method to call (apply, set, get etc)
-     * @param target The proxy's target
-     * @param args The arguments from this method
-     */
-    callIfExists(method, target, args){
-        const customName = this.__names[method];
-        if (customName in this)
-            return this[customName](...args);
-        else
-            return Reflect[method](target, ...args);
-    }
 }
 
 module.exports = CustomizableClass;
