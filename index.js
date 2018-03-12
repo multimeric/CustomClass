@@ -36,7 +36,7 @@ const defaultMethodNames = {
     ownKeys: '__ownKeys__',
     preventExtensions: '__preventExtensions__',
     set: '__set__',
-    setPrototypeOf: '__setPrototypeOf__',
+    setPrototypeOf: '__setPrototypeOf__'
 };
 
 
