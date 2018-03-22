@@ -43,7 +43,7 @@ I'm a function!
 Or maybe you want an object that has a default value for any key you try to access:
 ```javascript
 class MyClass extends CustomClass {
-    __get__(target, prop) {
+    __get__(target, property, receiver, getDefault) {
         if (prop in target) {
             return getDefault();
         }
