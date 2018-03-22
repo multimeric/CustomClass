@@ -91,7 +91,7 @@ method. For example if you override `__get__`, `getDefault()` will return the tr
 to access.
 
 ### List of Methods
-(Content based on "Proxy handler" by
+(Content based on [Proxy handler](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler) by
 [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler$history),
  licensed under [CC-BY-SA 2.5](http://creativecommons.org/licenses/by-sa/2.5/))
 
