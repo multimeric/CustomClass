@@ -1,4 +1,22 @@
-# CustomClass
+# CustomClass-
+- [Installation](#installation)
+- [Usage](#usage)
+  * [Common Arguments](#common-arguments)
+  * [List of Methods](#list-of-methods)
+    + [`__apply__(target, thisArg, argumentsList, getDefault)`](#__apply__target-thisarg-argumentslist-getdefault)
+    + [`__construct__(target, argumentsList, newTarget, getDefault)`](#__construct__target-argumentslist-newtarget-getdefault)
+    + [`__defineProperty__(target, property, descriptor, getDefault)`](#__defineproperty__target-property-descriptor-getdefault)
+    + [`__deleteProperty__(target, property, getDefault)`](#__deleteproperty__target-property-getdefault)
+    + [`__get__(target, property, receiver, getDefault)`](#__get__target-property-receiver-getdefault)
+    + [`__getOwnPropertyDescriptor__(target, prop, getDefault)`](#__getownpropertydescriptor__target-prop-getdefault)
+    + [`__getPrototypeOf__(target, getDefault)`](#__getprototypeof__target-getdefault)
+    + [`__has__(target, property, getDefault)`](#__has__target-property-getdefault)
+    + [`__isExtensible__(target, getDefault)`](#__isextensible__target-getdefault)
+    + [`__ownKeys__(target, getDefault)`](#__ownkeys__target-getdefault)
+    + [`__preventExtensions__(target, getDefault)`](#__preventextensions__target-getdefault)
+    + [`__set__(target, property, value, receiver, getDefault)`](#__set__target-property-value-receiver-getdefault)
+    + [`__setPrototypeOf__(target, prototype)`](#__setprototypeof__target-prototype)
+- [Example: Making a defaultdict](#example-making-a-defaultdict)
 
 `CustomClass` allows you to customize the internal methods of your JavaScript classes, in the same way that you might
 in other languages like Python or Ruby.
@@ -61,7 +79,7 @@ signature of these methods matches the corresponding methods on the
 [JavaScript `Proxy` object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler#Methods),
 but with an extra argument added on to the end, a function that will return the default value for this method.
 
-## Common Arguments:
+## Common Arguments
 
 * `target`: This object, but without any internal method intercepting. Use this to get information out of your object
 without fear of causing an infinite loop
@@ -70,6 +88,9 @@ method. For example if you override `__get__`, `getDefault()` will return the tr
 to access.
 
 ## List of Methods
+(Content based on "Proxy handler" by
+[Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler$history),
+ licensed under [CC-BY-SA 2.5](http://creativecommons.org/licenses/by-sa/2.5/))
 
 ### `__apply__(target, thisArg, argumentsList, getDefault)`
 Invoked when an instance of this class is called as a function
@@ -140,10 +161,6 @@ e.g. `myInstance.foo = "bar"`
 Invoked when an instance of this class has its prototype set
 * `prototype`: The object's new prototype or `null` using
 `Object.setPrototypeOf()`
-
-(Content based on "Proxy handler" by
-[Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler$history),
- licensed under [CC-BY-SA 2.5](http://creativecommons.org/licenses/by-sa/2.5/))
 
 # Example: Making a defaultdict
 
