@@ -19,12 +19,11 @@ console.log(mc());
 I'm a function!
 ```
 
-Or maybe you want an object that has a default value for any key you give it:
+Or maybe you want an object that has a default value for any key you try to access:
 ```javascript
 class MyClass extends CustomClass {
     __get__(target, prop) {
         if (prop in target) {
-            // If we already have a value for this, return it
             return getDefault();
         }
         else {
@@ -72,34 +71,36 @@ to access.
 
 ## List of Methods
 
-* `__apply__(target, thisArg, argumentsList, getDefault)`:
+* `__apply__(target, thisArg, argumentsList, getDefault)`: Invoked when an instance of this class is called as a function (`myInstance()`)
     * `thisArg`: The `this` argument for the call
     * `argumentsList`: The list of arguments for the call
-* `__construct__(target, argumentsList, newTarget, getDefault)`:
+* `__construct__(target, argumentsList, newTarget, getDefault)`: Invoked when an instance of this class is used as a constructor (`new myInstance()`)
     * `argumentsList`: The list of arguments for the constructor
     * `newTarget`: The object that is being constructed
-* `__defineProperty__(target, property, descriptor, getDefault)`:
+* `__defineProperty__(target, property, descriptor, getDefault)`: Invoked when an instance of this class has `Object.defineProperty()` called on it
     * `property`: The name of the property whose description is to be retrieved
     * `descriptor`: The descriptor for the property being defined or modified
-* `__deleteProperty__(target, property, getDefault)`:
+* `__deleteProperty__(target, property, getDefault)`: Invoked when an instance of this class has one of its fields deleted (`delete myInstance.foo`)
     * `property`: The name of the property to delete
-* `__get__(target, property, receiver, getDefault)`:
+* `__get__(target, property, receiver, getDefault)`: Invoked when an instance of this class has one of its fields accessed (`myInstance.foo`)
     * `property`: The name of the property to get
     * `receiver`: Either the proxy or an object that inherits from the proxy
-* `__getOwnPropertyDescriptor__(target, prop, getDefault)`:
+* `__getOwnPropertyDescriptor__(target, prop, getDefault)`: Invoked when an instance of this class has `Object.getOwnPropertyDescriptor()` called on it
     * `prop`: The name of the property whose description should be retrieved
-* `__getPrototypeOf__(target, getDefault)`:
-* `__has__(target, property, getDefault)`:
+* `__getPrototypeOf__(target, getDefault)`: Invoked when an instance of this class has its prototype checked,
+(`Object.getPrototypeOf(myInstance)`, or `myInstance instanceof SomeClass`)
+* `__has__(target, property, getDefault)`: Invoked when an instance of this class has the `in` operator applied to it (`"foo" in myInstance`)
     * `property`: The name of the property to check for existence.
-* `__isExtensible__(target, getDefault)`
-* `__ownKeys__(target, getDefault)`
-* `__preventExtensions__(target, getDefault)`
-* `__set__(target, property, value, receiver, getDefault):
+* `__isExtensible__(target, getDefault)`: Invoked when an instance of this class has `Object.isExtensible()` called on it
+* `__ownKeys__(target, getDefault)`: Invoked when an instance of this class has `Object.getOwnPropertyNames()` called on it
+* `__preventExtensions__(target, getDefault)`: Invoked when an instance of this class has `Object.preventExtensions()`  called on it.
+* `__set__(target, property, value, receiver, getDefault)`: Invoked when an instance of this class has one of its fields set (`myInstance.foo = "bar"`)
     * `property`: The name of the property to set
     * `value`: The new value of the property to set
     * `The object to which the assignment was originally directed`
-* `__setPrototypeOf__(target, prototype)`:
+* `__setPrototypeOf__(target, prototype)`: Invoked when an instance of this class has its prototype set
     * `prototype`: The object's new prototype or `null`
+    using `Object.setPrototypeOf()`
 
 (Content based on "Proxy handler" by
 [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy/handler$history),
