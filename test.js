@@ -1,8 +1,36 @@
 const CustomClass = require("./index");
 const assert = require("assert");
 
-describe("README example", () => {
-    it("should allow the construction of a DefaultDict class", () => {
+describe("README examples", () => {
+    it("should work with the __apply__ example", () => {
+        class MyClass extends CustomClass {
+            __apply__(){
+                return "I'm a function!";
+            }
+        }
+
+        const mc = new MyClass();
+        assert.equal(mc(), "I'm a function!");
+    });
+
+    it("should work with the __get__ example", () => {
+        class MyClass extends CustomClass {
+            __get__(target, prop) {
+                if (prop in target) {
+                    // If we already have a value for this, return it
+                    return getDefault();
+                }
+                else {
+                    return "DEFAULT VALUE";
+                }
+            }
+        }
+
+        const mc = new MyClass();
+        assert.equal(mc.foo, "DEFAULT VALUE");
+        assert.equal(mc.bar, "DEFAULT VALUE");
+    });
+    it("should work with the DefaultDict example", () => {
         class DefaultDict extends CustomClass {
             constructor(defaultConstructor) {
                 super();

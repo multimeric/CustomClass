@@ -1,7 +1,7 @@
 {
-  "name": "classstomize",
+  "name": "custom-class",
   "version": "1.0.0",
-  "description": "",
+  "description": "Modify the internal behaviour of your JavaScript classes",
   "main": "index.js",
   "scripts": {
     "test": "npx mocha test.js"
@@ -13,11 +13,10 @@
   "author": "",
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/TMiguelT/CustomizableClassJs/issues"
+    "url": "https://github.com/TMiguelT/CustomClass/issues"
   },
-  "homepage": "https://github.com/TMiguelT/CustomizableClassJs#readme",
+  "homepage": "https://github.com/TMiguelT/CustomClass#readme",
   "devDependencies": {
-    "mocha": "^5.0.3",
-    "readme-to-test": "^0.2.0"
+    "mocha": "^5.0.3"
   }
 }
